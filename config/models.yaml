@@ -1,0 +1,372 @@
+# a2moto model whitelist.
+#
+# All spec figures (kW, hp, cc, wet weight) are RECALLED from public spec
+# sheets and are UNVERIFIED (verified: false) until checked against a
+# manufacturer data sheet. The `source` field records provenance. Do not
+# treat unverified figures as authoritative -- tests/test_models_yaml.py
+# lists every unverified entry for audit.
+#
+# Aliases are case-insensitive regexes matched against listing titles in
+# CZ/SK/PL. Extend from data/unmatched.txt as real titles come in.
+#
+# Note: SPEC.md lists "SV650 (restricted)" and "Trident 660 (restricted)"
+# under native A2 as well; each model appears here exactly once with
+# restrictable: true. Already-restricted examples are handled per-listing
+# via is_restricted_35kw.
+
+models:
+  # ---------- Native A2 (stock <= 35 kW) ----------
+  - canonical: Ninja 400
+    manufacturer: Kawasaki
+    aliases: ['ninja\s*400', '\bex\s*400\b']
+    stock_kw: 33.4
+    stock_hp: 45
+    cc: 399
+    wet_weight_kg: 168
+    a2_native: true
+    restrictable: false
+    year_from: 2018
+    source: recalled from Kawasaki EU spec sheet; unverified
+    verified: false
+
+  - canonical: Ninja 500
+    manufacturer: Kawasaki
+    aliases: ['ninja\s*500']
+    stock_kw: 33.4
+    stock_hp: 45
+    cc: 451
+    wet_weight_kg: 171
+    a2_native: true
+    restrictable: false
+    year_from: 2024
+    source: recalled from Kawasaki EU spec sheet; unverified
+    verified: false
+
+  - canonical: CB500F
+    manufacturer: Honda
+    aliases: ['cb\s*500\s*f\b', '\bcb500\b(?!x|r)']
+    stock_kw: 35
+    stock_hp: 47.5
+    cc: 471
+    wet_weight_kg: 189
+    a2_native: true
+    restrictable: false
+    year_from: 2013
+    source: recalled from Honda EU spec sheet; unverified
+    verified: false
+
+  - canonical: CBR500R
+    manufacturer: Honda
+    aliases: ['cbr\s*500\s*r?\b']
+    stock_kw: 35
+    stock_hp: 47.5
+    cc: 471
+    wet_weight_kg: 192
+    a2_native: true
+    restrictable: false
+    year_from: 2013
+    source: recalled from Honda EU spec sheet; unverified
+    verified: false
+
+  - canonical: CB500X
+    manufacturer: Honda
+    aliases: ['cb\s*500\s*x\b']
+    stock_kw: 35
+    stock_hp: 47.5
+    cc: 471
+    wet_weight_kg: 199
+    a2_native: true
+    restrictable: false
+    year_from: 2013
+    source: recalled from Honda EU spec sheet; unverified
+    verified: false
+
+  - canonical: Z400
+    manufacturer: Kawasaki
+    aliases: ['\bz\s*400\b']
+    stock_kw: 33.4
+    stock_hp: 45
+    cc: 399
+    wet_weight_kg: 167
+    a2_native: true
+    restrictable: false
+    year_from: 2019
+    source: recalled from Kawasaki EU spec sheet; unverified
+    verified: false
+
+  - canonical: Z500
+    manufacturer: Kawasaki
+    aliases: ['\bz\s*500\b']
+    stock_kw: 33.4
+    stock_hp: 45
+    cc: 451
+    wet_weight_kg: 170
+    a2_native: true
+    restrictable: false
+    year_from: 2024
+    source: recalled from Kawasaki EU spec sheet; unverified
+    verified: false
+
+  - canonical: RS 457
+    manufacturer: Aprilia
+    aliases: ['rs\s*457']
+    stock_kw: 35
+    stock_hp: 47.6
+    cc: 457
+    wet_weight_kg: 175
+    a2_native: true
+    restrictable: false
+    year_from: 2024
+    source: recalled from Aprilia press material; unverified
+    verified: false
+
+  - canonical: MT-03
+    manufacturer: Yamaha
+    aliases: ['mt[\s-]*03\b']
+    stock_kw: 31
+    stock_hp: 42
+    cc: 321
+    wet_weight_kg: 168
+    a2_native: true
+    restrictable: false
+    year_from: 2016
+    source: recalled from Yamaha EU spec sheet; unverified
+    verified: false
+
+  - canonical: R3
+    manufacturer: Yamaha
+    aliases: ['yzf[\s-]*r3\b', '\br3\b']
+    stock_kw: 30.9
+    stock_hp: 42
+    cc: 321
+    wet_weight_kg: 169
+    a2_native: true
+    restrictable: false
+    year_from: 2015
+    source: recalled from Yamaha EU spec sheet; unverified
+    verified: false
+
+  - canonical: RC 390
+    manufacturer: KTM
+    aliases: ['rc\s*390']
+    stock_kw: 32
+    stock_hp: 44
+    cc: 373
+    wet_weight_kg: 172
+    a2_native: true
+    restrictable: false
+    year_from: 2014
+    source: recalled from KTM spec sheet (dry weight + fuel estimate); unverified
+    verified: false
+
+  - canonical: 390 Duke
+    manufacturer: KTM
+    aliases: ['duke\s*390', '390\s*duke']
+    stock_kw: 32
+    stock_hp: 44
+    cc: 373
+    wet_weight_kg: 165
+    a2_native: true
+    restrictable: false
+    year_from: 2013
+    source: recalled from KTM spec sheet (dry weight + fuel estimate); unverified
+    verified: false
+
+  # ---------- Restrictable (stock 50+ hp, <= 70 kW, restrictable to 35 kW) ----------
+  - canonical: Ninja 650
+    manufacturer: Kawasaki
+    aliases: ['ninja\s*650', '\bex\s*650\b']
+    stock_kw: 50.2
+    stock_hp: 68
+    cc: 649
+    wet_weight_kg: 193
+    a2_native: false
+    restrictable: true
+    year_from: 2017
+    source: recalled from Kawasaki EU spec sheet; unverified
+    verified: false
+
+  - canonical: Z650
+    manufacturer: Kawasaki
+    aliases: ['\bz\s*650\b']
+    stock_kw: 50.2
+    stock_hp: 68
+    cc: 649
+    wet_weight_kg: 188
+    a2_native: false
+    restrictable: true
+    year_from: 2017
+    source: recalled from Kawasaki EU spec sheet; unverified
+    verified: false
+
+  - canonical: CBR650R
+    manufacturer: Honda
+    aliases: ['cbr\s*650\s*r?\b']
+    stock_kw: 70
+    stock_hp: 95
+    cc: 649
+    wet_weight_kg: 208
+    a2_native: false
+    restrictable: true
+    year_from: 2019
+    source: recalled from Honda EU spec sheet; exactly at 70 kW cap; unverified
+    verified: false
+
+  - canonical: CB650R
+    manufacturer: Honda
+    aliases: ['cb\s*650\s*r\b']
+    stock_kw: 70
+    stock_hp: 95
+    cc: 649
+    wet_weight_kg: 202
+    a2_native: false
+    restrictable: true
+    year_from: 2019
+    source: recalled from Honda EU spec sheet; exactly at 70 kW cap; unverified
+    verified: false
+
+  - canonical: MT-07
+    manufacturer: Yamaha
+    aliases: ['mt[\s-]*07\b']
+    stock_kw: 54.9
+    stock_hp: 74.8
+    cc: 689
+    wet_weight_kg: 184
+    a2_native: false
+    restrictable: true
+    year_from: 2014
+    source: recalled from Yamaha EU spec sheet; unverified
+    verified: false
+
+  - canonical: R7
+    manufacturer: Yamaha
+    aliases: ['yzf[\s-]*r7\b', '\br7\b']
+    stock_kw: 54.9
+    stock_hp: 73.4
+    cc: 689
+    wet_weight_kg: 188
+    a2_native: false
+    restrictable: true
+    year_from: 2021
+    source: recalled from Yamaha EU spec sheet; unverified
+    verified: false
+
+  - canonical: XSR700
+    manufacturer: Yamaha
+    aliases: ['xsr\s*700']
+    stock_kw: 54.9
+    stock_hp: 74.8
+    cc: 689
+    wet_weight_kg: 188
+    a2_native: false
+    restrictable: true
+    year_from: 2016
+    source: recalled from Yamaha EU spec sheet; unverified
+    verified: false
+
+  - canonical: Tenere 700
+    manufacturer: Yamaha
+    aliases: ['t[eé]n[eé]r[eé]\s*700', '\bt7\b', 'xtz\s*700']
+    stock_kw: 54
+    stock_hp: 73
+    cc: 689
+    wet_weight_kg: 204
+    a2_native: false
+    restrictable: true
+    year_from: 2019
+    source: recalled from Yamaha EU spec sheet; unverified
+    verified: false
+
+  - canonical: SV650
+    manufacturer: Suzuki
+    aliases: ['sv\s*650']
+    stock_kw: 56
+    stock_hp: 76
+    cc: 645
+    wet_weight_kg: 197
+    a2_native: false
+    restrictable: true
+    year_from: 1999
+    source: recalled 2016+ gen Suzuki spec sheet; older gens differ; unverified
+    verified: false
+
+  - canonical: GSX-8S
+    manufacturer: Suzuki
+    aliases: ['gsx[\s-]*8\s*s\b']
+    stock_kw: 61
+    stock_hp: 83
+    cc: 776
+    wet_weight_kg: 202
+    a2_native: false
+    restrictable: true
+    year_from: 2023
+    source: recalled from Suzuki EU spec sheet; unverified
+    verified: false
+
+  - canonical: GSX-8R
+    manufacturer: Suzuki
+    aliases: ['gsx[\s-]*8\s*r\b']
+    stock_kw: 61
+    stock_hp: 83
+    cc: 776
+    wet_weight_kg: 205
+    a2_native: false
+    restrictable: true
+    year_from: 2024
+    source: recalled from Suzuki EU spec sheet; unverified
+    verified: false
+
+  - canonical: Trident 660
+    manufacturer: Triumph
+    aliases: ['trident\s*660', '\btrident\b']
+    stock_kw: 59.6
+    stock_hp: 81
+    cc: 660
+    wet_weight_kg: 189
+    a2_native: false
+    restrictable: true
+    year_from: 2021
+    source: recalled from Triumph spec sheet; unverified
+    verified: false
+
+  - canonical: Tiger Sport 660
+    manufacturer: Triumph
+    aliases: ['tiger\s*sport\s*660']
+    stock_kw: 59.6
+    stock_hp: 81
+    cc: 660
+    wet_weight_kg: 206
+    a2_native: false
+    restrictable: true
+    year_from: 2022
+    source: recalled from Triumph spec sheet; unverified
+    verified: false
+
+  - canonical: 700CL-X
+    manufacturer: CFMOTO
+    aliases: ['700\s*cl[\s-]*x', 'cl[\s-]*x\s*700']
+    stock_kw: 55
+    stock_hp: 75
+    cc: 693
+    wet_weight_kg: 196
+    a2_native: false
+    restrictable: true
+    year_from: 2021
+    source: recalled from CFMOTO EU material; unverified
+    verified: false
+
+  - canonical: RS 660
+    manufacturer: Aprilia
+    aliases: ['rs\s*660']
+    stock_kw: 69
+    stock_hp: 94
+    cc: 659
+    wet_weight_kg: 183
+    a2_native: false
+    restrictable: true
+    year_from: 2020
+    source: >-
+      SPEC.md states 94 hp (~69 kW); full-power EU version is quoted 100 PS
+      (73.5 kW) which would FAIL the 70 kW cap -- verify homologation variant
+      per listing; unverified
+    verified: false
