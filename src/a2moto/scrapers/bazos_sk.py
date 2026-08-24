@@ -14,6 +14,7 @@ from typing import Any
 from selectolax.parser import HTMLParser
 
 from a2moto.models import Listing
+from a2moto.parsers import text_extract
 from a2moto.scrapers.base import BaseScraper
 
 logger = logging.getLogger(__name__)
@@ -138,7 +139,7 @@ class BazosSKScraper(BaseScraper):
                 return None
 
             # Extract description
-            desc_elem = tree.css_first("div.popis")
+            desc_elem = tree.css_first("div.popisdetail")
             description = desc_elem.text(strip=True) if desc_elem else None
 
             # Extract price
@@ -271,12 +272,24 @@ class BazosSKScraper(BaseScraper):
             if photo_links:
                 photos_count = len(photo_links)
 
+            # Extract structured data from text using parsers
+            mileage_data = text_extract.extract_mileage(title, description)
+            year_data = text_extract.extract_year(title, description)
+            negotiable_data = text_extract.extract_price_negotiable(title, description)
+            crash_data = text_extract.extract_crash_damage(title, description)
+            restriction_data = text_extract.extract_restriction(title, description)
+            service_data = text_extract.extract_service_book(title, description)
+
             # Build raw_attrs with any extra data
             raw_attrs: dict[str, Any] = {
                 "raw_title": title,
                 "raw_description": description,
                 "raw_price_text": price_elem.text(strip=True) if price_elem else None,
                 "raw_location": city,
+                "mileage_raw_match": mileage_data.get("raw_match"),
+                "year_raw_match": year_data.get("raw_match"),
+                "restriction_raw_match": restriction_data.get("raw_match"),
+                "service_raw_match": service_data.get("raw_match"),
             }
 
             # Create Listing object
@@ -289,14 +302,14 @@ class BazosSKScraper(BaseScraper):
                 description_raw=description,
                 model_canonical=None,  # Will be resolved later
                 manufacturer=None,  # Will be resolved later
-                year=None,  # Will be extracted from text in step 3
-                mileage_km=None,  # Will be extracted from text in step 3
-                displacement_cc=None,  # Will be extracted from text in step 3
-                power_kw=None,  # Will be extracted from text in step 3
+                year=year_data.get("year"),
+                mileage_km=mileage_data.get("mileage_km"),
+                displacement_cc=None,  # Will be extracted from text later
+                power_kw=None,  # Will be extracted from text later
                 price_raw=price_raw,
                 currency=currency,
                 price_eur=None,  # Will be converted later
-                price_negotiable=None,  # Will be extracted from text in step 3
+                price_negotiable=negotiable_data.get("negotiable"),
                 vat_deductible=None,
                 country="SK",
                 region=None,
@@ -309,10 +322,10 @@ class BazosSKScraper(BaseScraper):
                 last_seen_at=now,
                 is_active=True,
                 condition_notes=None,
-                has_abs=None,  # Will be extracted from text in step 3
-                has_crash_damage=None,  # Will be extracted from text in step 3
-                is_restricted_35kw=None,  # Will be extracted from text in step 3
-                service_book=None,  # Will be extracted from text in step 3
+                has_abs=None,  # Will be extracted from text later
+                has_crash_damage=crash_data.get("has_crash_damage"),
+                is_restricted_35kw=restriction_data.get("is_restricted_35kw"),
+                service_book=service_data.get("service_book"),
                 owners_count=None,
                 photos_count=photos_count,
                 is_parts_listing=is_parts_listing,

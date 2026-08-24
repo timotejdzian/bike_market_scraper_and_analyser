@@ -1,0 +1,31 @@
+{
+  "listing_id": "194525468",
+  "title": "Yamaha WR450F  A2",
+  "description": null,
+  "mileage": {
+    "mileage_km": null,
+    "suspicious": false,
+    "raw_match": null
+  },
+  "year": {
+    "year": null,
+    "mismatch": false,
+    "raw_match": null
+  },
+  "negotiable": {
+    "negotiable": false,
+    "raw_match": null
+  },
+  "crash_damage": {
+    "has_crash_damage": false,
+    "raw_match": null
+  },
+  "restriction": {
+    "is_restricted_35kw": true,
+    "raw_match": "a2"
+  },
+  "service_book": {
+    "service_book": null,
+    "raw_match": null
+  }
+}

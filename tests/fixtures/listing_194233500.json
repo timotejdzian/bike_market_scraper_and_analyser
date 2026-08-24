@@ -1,0 +1,31 @@
+{
+  "listing_id": "194233500",
+  "title": "KAWASAKI ZX6R",
+  "description": "Mám záujem o kúpu Kawasaki Ninja 636 ZX6R\n\nRočník 2006 \n\nTakú čo má v TP 25kw, inak otvorená na 97kw\n\nIdeálne v čiernej\n\nV prípade záujmu ma neváhajte kontaktovať, ďakujem za každú ponuku\n\n\n\nA2, a2, ninja, Ninja, zx6r, ZX6-R, 35kw, 25kw",
+  "mileage": {
+    "mileage_km": null,
+    "suspicious": false,
+    "raw_match": null
+  },
+  "year": {
+    "year": 2006,
+    "mismatch": false,
+    "raw_match": "2006"
+  },
+  "negotiable": {
+    "negotiable": false,
+    "raw_match": null
+  },
+  "crash_damage": {
+    "has_crash_damage": false,
+    "raw_match": null
+  },
+  "restriction": {
+    "is_restricted_35kw": true,
+    "raw_match": "a2"
+  },
+  "service_book": {
+    "service_book": null,
+    "raw_match": null
+  }
+}

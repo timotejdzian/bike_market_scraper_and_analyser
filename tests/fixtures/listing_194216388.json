@@ -1,0 +1,31 @@
+{
+  "listing_id": "194216388",
+  "title": "YAMAHA XT660X XT 660X 6/2008 35kw,25kw",
+  "description": null,
+  "mileage": {
+    "mileage_km": null,
+    "suspicious": false,
+    "raw_match": null
+  },
+  "year": {
+    "year": 2008,
+    "mismatch": false,
+    "raw_match": "2008"
+  },
+  "negotiable": {
+    "negotiable": false,
+    "raw_match": null
+  },
+  "crash_damage": {
+    "has_crash_damage": false,
+    "raw_match": null
+  },
+  "restriction": {
+    "is_restricted_35kw": null,
+    "raw_match": null
+  },
+  "service_book": {
+    "service_book": null,
+    "raw_match": null
+  }
+}

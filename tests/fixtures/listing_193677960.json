@@ -1,0 +1,31 @@
+{
+  "listing_id": "193677960",
+  "title": "Predám elektrický skúter Racceway",
+  "description": "Dobrí deň mám na predaj Elektricky skúter plne pojazdny  svieti brzdí trúbi ma aj poplašné najvišia povolená rýchlosť je 80km/h po rovine samozrejme záleží od váhy (nosnosť) minimálne známky používania na cene menšia dohoda",
+  "mileage": {
+    "mileage_km": 80,
+    "suspicious": true,
+    "raw_match": " 80km"
+  },
+  "year": {
+    "year": null,
+    "mismatch": false,
+    "raw_match": null
+  },
+  "negotiable": {
+    "negotiable": true,
+    "raw_match": "dohoda"
+  },
+  "crash_damage": {
+    "has_crash_damage": false,
+    "raw_match": null
+  },
+  "restriction": {
+    "is_restricted_35kw": null,
+    "raw_match": null
+  },
+  "service_book": {
+    "service_book": null,
+    "raw_match": null
+  }
+}

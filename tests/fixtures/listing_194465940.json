@@ -1,0 +1,31 @@
+{
+  "listing_id": "194465940",
+  "title": "Predám Kawasaki Versys 650 Grand Tourer (r.v. 2022, iba 4 08",
+  "description": "Predam motorku Kawasaki Z1000SX, rok 2019.\n\nNajazdene 20500km. Servisovana v Kawasaki, plne funkcna, nehavarovana, nepadnuta. Kupovana na Slovensku. STK platna do 08/2029",
+  "mileage": {
+    "mileage_km": 20500,
+    "suspicious": false,
+    "raw_match": " 20500km"
+  },
+  "year": {
+    "year": 2022,
+    "mismatch": false,
+    "raw_match": "r.v. 2022"
+  },
+  "negotiable": {
+    "negotiable": false,
+    "raw_match": null
+  },
+  "crash_damage": {
+    "has_crash_damage": false,
+    "raw_match": null
+  },
+  "restriction": {
+    "is_restricted_35kw": null,
+    "raw_match": null
+  },
+  "service_book": {
+    "service_book": null,
+    "raw_match": null
+  }
+}

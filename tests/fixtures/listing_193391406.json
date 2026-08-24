@@ -1,0 +1,31 @@
+{
+  "listing_id": "193391406",
+  "title": "Harley Davidson Pan America 1250",
+  "description": "Značka: Harley Davidson\n\nModel: XL / Sportster\n\nObjem motora: 1202 cm3\n\nPalivo: Benzín\n\nNajazdené km: 20300 km\n\nMesiac: 4\n\nVýkon motora: 50 kW\n\nStav: Používané\n\nPrevodovka: Manuálna\n\nRok: 2014\n\nVIN: 5HD1CT3COEC424830\n\nFarba: Červená\n\nNorma emisií: Euro 6\n\nDruh: Chopper/Cruiser\n\n\n\nBezpečnosť:\n\nABS, A ...",
+  "mileage": {
+    "mileage_km": null,
+    "suspicious": false,
+    "raw_match": null
+  },
+  "year": {
+    "year": 2014,
+    "mismatch": false,
+    "raw_match": "2014"
+  },
+  "negotiable": {
+    "negotiable": false,
+    "raw_match": null
+  },
+  "crash_damage": {
+    "has_crash_damage": false,
+    "raw_match": null
+  },
+  "restriction": {
+    "is_restricted_35kw": null,
+    "raw_match": null
+  },
+  "service_book": {
+    "service_book": null,
+    "raw_match": null
+  }
+}

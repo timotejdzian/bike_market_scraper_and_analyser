@@ -1,0 +1,31 @@
+{
+  "listing_id": "194313410",
+  "title": "Predam Aprilia SR GT 200 sport",
+  "description": "Ponúkam na predaj moderný a športový skúter Aprilia SR GT 125. Ideálny do mesta aj na dlhšie trasy, s výborným podvozkom a skvelou spotrebou. Skúter je pripravený  stačí sadnúť a jazdiť. Na vedenie stačí vodičský preukaz skupiny B (na auto).cena 2650€+ dohoda \n\n\n\n- Rok výroby: 22.7 2022]\n\n- Najazden ...",
+  "mileage": {
+    "mileage_km": null,
+    "suspicious": false,
+    "raw_match": null
+  },
+  "year": {
+    "year": 2022,
+    "mismatch": false,
+    "raw_match": "2022"
+  },
+  "negotiable": {
+    "negotiable": true,
+    "raw_match": "dohoda"
+  },
+  "crash_damage": {
+    "has_crash_damage": false,
+    "raw_match": null
+  },
+  "restriction": {
+    "is_restricted_35kw": null,
+    "raw_match": null
+  },
+  "service_book": {
+    "service_book": null,
+    "raw_match": null
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "listing_id": "194757741",
+  "title": "BMW 1250 GS – FULL VÝBAVA – iba 7 200 km",
+  "description": "Predám motorku BMW R1250 GS Adventure rok výroby 4/2021 v plnej výbave aj s kuframi. Aktuálne po veľkom servise s novými pneumatikami. Najazdené km 40000.",
+  "mileage": {
+    "mileage_km": 7200,
+    "suspicious": false,
+    "raw_match": " 7 200 km"
+  },
+  "year": {
+    "year": 2021,
+    "mismatch": false,
+    "raw_match": "2021"
+  },
+  "negotiable": {
+    "negotiable": false,
+    "raw_match": null
+  },
+  "crash_damage": {
+    "has_crash_damage": false,
+    "raw_match": null
+  },
+  "restriction": {
+    "is_restricted_35kw": null,
+    "raw_match": null
+  },
+  "service_book": {
+    "service_book": null,
+    "raw_match": null
+  }
+}

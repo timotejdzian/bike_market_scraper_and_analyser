@@ -1,0 +1,31 @@
+{
+  "listing_id": "194504206",
+  "title": "BMW R1250GS adventure rally hp",
+  "description": "Predám veľmi peknú, nebúranú BMW R1250GS, rok výroby 3/2021, najazdené 55000 km. Moto bola kúpená na Slovensku v Techmoto Bratislava, kde bola aj servisovaná. Som 2 majiteľ, moto predávam z dôvodu kúpy novej GS. Moto predávam tak ako je na foto, so všetkými 3 vario kuframi, tankvakom,  čiernym plexi ...",
+  "mileage": {
+    "mileage_km": 55000,
+    "suspicious": false,
+    "raw_match": "najazdené 55000 km"
+  },
+  "year": {
+    "year": 2021,
+    "mismatch": false,
+    "raw_match": "2021"
+  },
+  "negotiable": {
+    "negotiable": false,
+    "raw_match": null
+  },
+  "crash_damage": {
+    "has_crash_damage": false,
+    "raw_match": null
+  },
+  "restriction": {
+    "is_restricted_35kw": null,
+    "raw_match": null
+  },
+  "service_book": {
+    "service_book": null,
+    "raw_match": null
+  }
+}

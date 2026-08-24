@@ -1,0 +1,31 @@
+{
+  "listing_id": "194156601",
+  "title": "Predám orig. Akrapovič Titan-Carbon koncovku",
+  "description": "BMW R nineT Urban G/S 40 Years Edition,\n\nprvní registrace 08/2022, 80kW, naj.: 4342Km, servisní kniha - 1.inspekce - 09/23(739Km), 2.inspekce - 05/25(3258Km), 3.inspekce - 06/26(4312Km), 2x klíč, COC list, předplacen oil. servis v roce 2023 na 5 let, boční brašna ke 100 let výročí BMW motorrad, tank ...",
+  "mileage": {
+    "mileage_km": 4342,
+    "suspicious": false,
+    "raw_match": "4342km"
+  },
+  "year": {
+    "year": 2022,
+    "mismatch": false,
+    "raw_match": "2022"
+  },
+  "negotiable": {
+    "negotiable": false,
+    "raw_match": null
+  },
+  "crash_damage": {
+    "has_crash_damage": false,
+    "raw_match": null
+  },
+  "restriction": {
+    "is_restricted_35kw": null,
+    "raw_match": null
+  },
+  "service_book": {
+    "service_book": null,
+    "raw_match": null
+  }
+}
