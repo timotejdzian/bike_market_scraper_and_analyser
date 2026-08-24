@@ -2,10 +2,18 @@
 
 from __future__ import annotations
 
+import logging
+import sys
+from datetime import datetime
+from pathlib import Path
+
 import typer
 
 from a2moto.config import load_model_specs
+from a2moto.db import SessionLocal, init_db, save_listing
 from a2moto.eligibility import check_a2_eligibility
+from a2moto.scrapers.base import ScraperConfig
+from a2moto.scrapers.bazos_sk import BazosSKScraper
 
 app = typer.Typer(
     help="A2 sportbike market scraper and fair-price analyzer (CZ/SK/PL).",
@@ -13,14 +21,132 @@ app = typer.Typer(
 )
 
 
+def setup_logging(verbose: bool = False) -> None:
+    """Configure structured logging to console and file."""
+    log_dir = Path("logs")
+    log_dir.mkdir(exist_ok=True)
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file = log_dir / f"a2moto_{timestamp}.log"
+
+    level = logging.DEBUG if verbose else logging.INFO
+
+    # Configure root logger
+    logging.basicConfig(
+        level=level,
+        format="%(asctime)s [%(levelname)8s] %(name)s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        handlers=[
+            logging.FileHandler(log_file, encoding="utf-8"),
+            logging.StreamHandler(sys.stdout),
+        ],
+    )
+
+    logger = logging.getLogger(__name__)
+    logger.info(f"Logging to {log_file}")
+
+
+# Mapping of site names to scraper classes
+SCRAPERS = {
+    "bazos.sk": BazosSKScraper,
+}
+
+
 @app.command()
 def scrape(
     sites: str = typer.Option("all", help="Comma-separated site list or 'all'."),
     max_pages: int = typer.Option(20, help="Max result pages per site."),
+    refresh: bool = typer.Option(False, help="Force re-fetch, bypass cache."),
+    verbose: bool = typer.Option(False, help="Enable debug logging."),
 ) -> None:
-    """Scrape classified listings. Not implemented yet (step 2+)."""
-    typer.echo(f"scrape(sites={sites!r}, max_pages={max_pages}): not implemented yet (step 2+)")
-    raise typer.Exit(code=1)
+    """Scrape classified listings and save to database."""
+    setup_logging(verbose=verbose)
+    logger = logging.getLogger(__name__)
+
+    # Initialize database
+    init_db()
+
+    # Determine which sites to scrape
+    if sites == "all":
+        site_list = list(SCRAPERS.keys())
+    else:
+        site_list = [s.strip() for s in sites.split(",")]
+
+    # Validate site names
+    unknown = [s for s in site_list if s not in SCRAPERS]
+    if unknown:
+        typer.echo(f"Error: Unknown sites: {', '.join(unknown)}", err=True)
+        typer.echo(f"Available sites: {', '.join(SCRAPERS.keys())}")
+        raise typer.Exit(code=1)
+
+    logger.info(f"Starting scrape of {len(site_list)} site(s): {', '.join(site_list)}")
+    logger.info(f"Max pages per site: {max_pages}, Force refresh: {refresh}")
+
+    # Scrape each site
+    total_stats = {
+        "sites_scraped": 0,
+        "sites_failed": 0,
+        "total_listings": 0,
+        "total_failed": 0,
+    }
+
+    for site_name in site_list:
+        scraper_class = SCRAPERS[site_name]
+        config = ScraperConfig(force_refresh=refresh)
+
+        try:
+            with scraper_class(config=config) as scraper:
+                listings, stats = scraper.scrape(max_pages=max_pages)
+
+                # Save listings to database
+                logger.info(f"Saving {len(listings)} listings to database...")
+                session = SessionLocal()
+                try:
+                    saved_count = 0
+                    for listing in listings:
+                        save_listing(session, listing)
+                        saved_count += 1
+                    session.commit()
+                    logger.info(f"Saved {saved_count} listings from {site_name}")
+                except Exception as e:
+                    session.rollback()
+                    logger.error(f"Failed to save listings: {e}", exc_info=True)
+                    raise
+                finally:
+                    session.close()
+
+                # Update totals
+                total_stats["sites_scraped"] += 1
+                total_stats["total_listings"] += stats["listings_parsed"]
+                total_stats["total_failed"] += stats["listings_failed"]
+
+                # Print summary for this site
+                typer.echo(f"\n{site_name} Summary:")
+                typer.echo(f"  Pages scraped: {stats['pages_scraped']}")
+                typer.echo(f"  URLs found: {stats['urls_found']}")
+                typer.echo(f"  Listings parsed: {stats['listings_parsed']}")
+                typer.echo(f"  Listings failed: {stats['listings_failed']}")
+                if stats["errors"]:
+                    typer.echo(f"  Errors: {len(stats['errors'])}")
+                    for error in stats["errors"][:5]:  # Show first 5 errors
+                        typer.echo(f"    - {error}")
+
+        except Exception as e:
+            logger.error(f"Failed to scrape {site_name}: {e}", exc_info=True)
+            total_stats["sites_failed"] += 1
+            typer.echo(f"\nError scraping {site_name}: {e}", err=True)
+
+    # Print final summary
+    typer.echo("\n" + "=" * 60)
+    typer.echo("Final Summary:")
+    typer.echo(f"  Sites scraped successfully: {total_stats['sites_scraped']}")
+    typer.echo(f"  Sites failed: {total_stats['sites_failed']}")
+    typer.echo(f"  Total listings saved: {total_stats['total_listings']}")
+    typer.echo(f"  Total listings failed: {total_stats['total_failed']}")
+    typer.echo("=" * 60)
+
+    if total_stats["sites_failed"] > 0:
+        raise typer.Exit(code=1)
 
 
 @app.command("scrape-new")

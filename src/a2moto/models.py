@@ -78,6 +78,7 @@ class Listing(BaseModel):
     service_book: bool | None = None
     owners_count: int | None = None
     photos_count: int | None = None
+    is_parts_listing: bool | None = None
     raw_attrs: dict[str, Any] = Field(default_factory=dict)
     dupe_group_id: str | None = None
     scrape_run_id: str | None = None

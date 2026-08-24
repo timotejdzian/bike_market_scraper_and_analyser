@@ -11,9 +11,23 @@ from pathlib import Path
 from typing import Any
 
 from sqlalchemy import JSON, Date, DateTime, Engine, ForeignKey, create_engine
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sessionmaker
 
 from a2moto.models import Listing, NewPrice
+
+# Default database path
+DEFAULT_DB_PATH = Path("data/listings.db")
+
+# Global engine and session factory
+_engine: Engine | None = None
+_session_factory: sessionmaker[Session] | None = None
+
+
+def SessionLocal() -> Session:
+    """Get a new database session."""
+    if _session_factory is None:
+        raise RuntimeError("Database not initialized. Call init_db() first.")
+    return _session_factory()
 
 
 class Base(DeclarativeBase):
@@ -57,6 +71,7 @@ class ListingRow(Base):
     service_book: Mapped[bool | None]
     owners_count: Mapped[int | None]
     photos_count: Mapped[int | None]
+    is_parts_listing: Mapped[bool | None]
     raw_attrs: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
     dupe_group_id: Mapped[str | None] = mapped_column(index=True)
     scrape_run_id: Mapped[str | None]
@@ -88,15 +103,28 @@ class NewPriceRow(Base):
     is_estimated: Mapped[bool] = mapped_column(default=False)
 
 
-def get_engine(db_path: Path) -> Engine:
+def get_engine(db_path: Path | None = None) -> Engine:
     """Create an engine for the SQLite DB at `db_path`, creating parent dirs."""
+    if db_path is None:
+        db_path = DEFAULT_DB_PATH
     db_path.parent.mkdir(parents=True, exist_ok=True)
     return create_engine(f"sqlite:///{db_path.as_posix()}")
 
 
-def init_db(engine: Engine) -> None:
-    """Create all tables if they do not exist."""
-    Base.metadata.create_all(engine)
+def init_db(db_path: Path | None = None) -> None:
+    """
+    Initialize the database: create tables and set up session factory.
+
+    Args:
+        db_path: Path to the SQLite database file. Uses DEFAULT_DB_PATH if None.
+    """
+    global _engine, _session_factory
+
+    if _engine is None:
+        _engine = get_engine(db_path)
+        _session_factory = sessionmaker(bind=_engine, expire_on_commit=False)
+
+    Base.metadata.create_all(_engine)
 
 
 def listing_to_row(listing: Listing) -> ListingRow:
@@ -105,3 +133,30 @@ def listing_to_row(listing: Listing) -> ListingRow:
 
 def new_price_to_row(new_price: NewPrice) -> NewPriceRow:
     return NewPriceRow(**new_price.model_dump())
+
+
+def save_listing(session: Session, listing: Listing) -> None:
+    """
+    Save or update a listing in the database.
+
+    If a listing with the same ID exists:
+    - Update last_seen_at
+    - Keep the original first_seen_at
+    - Update other fields
+
+    Args:
+        session: SQLAlchemy session
+        listing: Listing to save
+    """
+    existing = session.get(ListingRow, listing.id)
+
+    if existing:
+        # Update existing listing, preserve first_seen_at
+        first_seen = existing.first_seen_at
+        row = listing_to_row(listing)
+        row.first_seen_at = first_seen  # Preserve original first seen
+        session.merge(row)
+    else:
+        # Insert new listing
+        row = listing_to_row(listing)
+        session.add(row)

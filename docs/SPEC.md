@@ -31,6 +31,7 @@ Emit a warning when a listing's model fails eligibility so I can see borderline 
 Write one scraper module per site, all implementing the same `BaseScraper` interface. Start with these, ordered by priority:
 
 - `bazos.sk` (SK, `motorky` category)
+  - **Note on posted_at**: bazos.sk shows multiple dates (promotions, bumps, refreshes). The scraper derives `posted_at` from `min()` of visible dates, which represents the oldest date shown. This may be a renewal rather than the original posting date. Analysis in step 7 must not treat it as a definitive listing age; use it only for relative recency and assume it's a lower bound on actual age.
 - `bazos.cz` (CZ)
 - `autobazar.eu` (SK/CZ, has structured filters)
 - `motorkary.cz` (CZ, bazar section)

@@ -7,7 +7,15 @@
       "Bash(python -m ruff check:*)",
       "Bash(python -m ruff:*)",
       "Bash(python -m mypy:*)",
-      "Bash(a2moto models:*)"
+      "Bash(a2moto models:*)",
+      "WebFetch(domain:bazos.sk)",
+      "Bash(Get-ChildItem -Directory -Path \"C:\\Users\\Timi\\Desktop\\bike_market_scraper_and_analyser\\a2moto\" -Name)",
+      "Bash(python -m a2moto.cli:*)",
+      "Bash(python:*)",
+      "Bash(xargs cat:*)",
+      "Bash(cat:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nstep 2: bazos.sk scraper, 100 listings in DB\n\n- BaseScraper with robots.txt enforcement, caching, rate limiting, error isolation\n- robots.txt: fetch with urllib.robotparser, check every URL before request\n- Cache: list pages (6h TTL) + detail pages (7d TTL) separately\n- 403: block domain immediately; 429: respect Retry-After header\n- Rate limit key from URL netloc, not site_name\n- User-Agent: https://github.com/timotejdzian/bike_market_scraper_and_analyser\n\nbazos.sk scraper:\n- posted_at: min() of span.velikost10 dates (oldest = original posting)\n- Price extraction: div.inzeratycena + table fallback for older layout\n- is_parts_listing: CZ/SK/PL keywords (rozpredam, na diely, etc.)\n- 100 listings scraped, date range 2026-06-26 to 2026-08-24\n- Search URLs blocked by robots.txt; category pagination only\n\nDatabase: 100 listings, 390/400 with price, 100/100 with posted_at\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []
